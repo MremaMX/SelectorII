@@ -1793,6 +1793,22 @@ body.dark .msg-gen-btn.active {
   pointer-events: none;
 }
 
+@keyframes copyRippleIn  { from { transform: translate(-50%,-50%) scale(0); } to { transform: translate(-50%,-50%) scale(4); } }
+@keyframes copyRippleOut { from { transform: translate(-50%,-50%) scale(4); } to { transform: translate(-50%,-50%) scale(0); } }
+
+.copy-ripple {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 100%; height: 100%;
+  background: #10b981;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate(-50%,-50%) scale(0);
+}
+.copy-ripple.in  { animation: copyRippleIn  0.38s cubic-bezier(0.4,0,0.2,1) forwards; }
+.copy-ripple.out { animation: copyRippleOut 0.38s cubic-bezier(0.4,0,0.2,1) forwards; }
+
 .msg-gen-alert {
   position: fixed;
   top: 20px;
@@ -2377,7 +2393,7 @@ body.dark .menu-btn:hover {
 }
 
 .env-slider-icon {
-  color: #555;
+  color: #fff;
   opacity: 0.7;
   flex-shrink: 0;
 }
@@ -2664,11 +2680,13 @@ body.dark .filter-group-card {
 
             <!-- Botón Copiar -->
             <button class="msg-gen-copy-btn" id="copyMessageBtn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="9" y="2" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-              </svg>
-              Copiar
+              <span class="copy-btn-content" style="position:relative;z-index:1;display:flex;align-items:center;gap:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="2" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copiar
+              </span>
             </button>
           </div>
         </div> <!-- ✅ CIERRE DE .body -->
@@ -4452,12 +4470,34 @@ body.dark .filter-group-card {
     const message = generateMessage();
     const btn = document.getElementById('copyMessageBtn');
     const defaultHTML = btn ? btn.innerHTML : '';
+    if (btn) {
+      const origEl = btn.querySelector('.copy-btn-content');
+      btn._origContent = origEl ? origEl.innerHTML : btn.innerHTML;
+    }
     function showSent() {
       if (!btn) return;
-      btn.classList.add('sent');
-      btn.textContent = '✓ ¡Copiado!';
+      const content = btn.querySelector('.copy-btn-content');
+
+      // inject ripple
+      const ripple = document.createElement('span');
+      ripple.className = 'copy-ripple in';
+      btn.appendChild(ripple);
+
+      // after ripple covers button, show copiado text
       setTimeout(() => {
-        btn.classList.remove('sent');
+        if (content) { content.innerHTML = '✓ ¡Copiado!'; content.style.color = '#fff'; }
+      }, 200);
+
+      // start shrink
+      setTimeout(() => {
+        ripple.classList.remove('in');
+        ripple.classList.add('out');
+        if (content) { content.style.color = ''; content.innerHTML = btn._origContent || ''; }
+      }, 1400);
+
+      // full cleanup
+      setTimeout(() => {
+        ripple.remove();
         btn.innerHTML = defaultHTML;
       }, 1800);
     }
