@@ -108,6 +108,7 @@
       padding:28px;
       position:relative;
       overflow-y:auto;
+      z-index: 0;
     }
 
     .panel {
@@ -638,7 +639,7 @@
     body.dark .type-toggle.active .label { color: #fff; }
     body.dark .type-toggle.active .knob { background: #fff; }
 
-    .gallery-wrap { flex:1 1 auto; display:flex; flex-direction:column; gap:10px; overflow:visible; min-width:420px; min-height:0; position:relative; }
+    .gallery-wrap { flex:1 1 auto; display:flex; flex-direction:column; gap:10px; overflow:visible; min-width:0; min-height:0; position:relative; }
     #resultsArea {
       /* mask-image is managed dynamically by JS (initResultsAreaFade) */
     }
@@ -918,7 +919,8 @@
       position:fixed; inset:0; display:none; align-items:center; justify-content:center;
       background: rgba(0,0,0,0.45); z-index:3000; padding:20px;
       transition: opacity .22s ease;
-      backdrop-filter: none;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
     .overlay.show { display:flex; }
 
@@ -984,6 +986,8 @@
       align-items: center;
       justify-content: center;
       animation: fadeInOverlay .2s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     @keyframes fadeInOverlay {
@@ -1022,7 +1026,7 @@
       border-radius: 50%;
       background: #eaeaea;
       border: none;
-      color: #333;
+      color: #000;
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
@@ -1068,7 +1072,8 @@
         inset 0 -2px 3px -1px rgba(0,0,0,0.35),
         0 -5px 8px -1px rgba(80,80,110,0.2),
         inset 0 2px 3px -1px rgba(80,80,110,0.2),
-        inset 0 0 4px 1px rgba(80,80,110,0.2);
+        inset 0 0 4px 1px rgba(80,80,110,0.2),
+        0 0 0 1.5px rgba(255,255,255,0.45);
     }
 
     body.dark .img-zoom-close:hover {
@@ -1099,7 +1104,7 @@
       height: 38px;
       border-radius: 50%;
       background: #eaeaea;
-      color: #333;
+      color: #000;
       border: none;
       cursor: pointer;
       font-size: 16px;
@@ -1146,7 +1151,8 @@
         inset 0 -2px 3px -1px rgba(0,0,0,0.35),
         0 -5px 8px -1px rgba(80,80,110,0.2),
         inset 0 2px 3px -1px rgba(80,80,110,0.2),
-        inset 0 0 4px 1px rgba(80,80,110,0.2);
+        inset 0 0 4px 1px rgba(80,80,110,0.2),
+        0 0 0 1.5px rgba(255,255,255,0.45);
     }
 
     body.dark .modal-close-btn:hover {
@@ -1821,7 +1827,7 @@ body.dark .msg-gen-btn.active {
   
   .gallery-wrap {
     flex: 1;
-    min-width: 450px;
+    min-width: 0;
     order: 2;
   }
   
@@ -2106,6 +2112,8 @@ body.dark #grp-place.expanded > .group-header {
 /* ===== SEARCH INPUT ===== */
 .search-input {
   width: 160px;
+  min-width: 80px;
+  flex-shrink: 1;
   padding: 7px 14px;
   font-size: 12px;
   border-radius: 50px;
@@ -2385,15 +2393,19 @@ body.dark .env-slider-icon {
 /* Track */
 .env-slider::-webkit-slider-runnable-track {
   width: 4px;
-  background: rgba(0,0,0,0.12);
+  background: rgba(0,0,0,0.35);
   border-radius: 999px;
 }
 body.dark .env-slider::-webkit-slider-runnable-track {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.35);
 }
 .env-slider::-moz-range-track {
   width: 4px;
-  background: rgba(0,0,0,0.12);
+  background: rgba(0,0,0,0.35);
+  border-radius: 999px;
+}
+body.dark .env-slider::-moz-range-track {
+  background: rgba(255,255,255,0.35);
   border-radius: 999px;
 }
 
@@ -2548,8 +2560,8 @@ body.dark .filter-group-card {
         </div>
 
         <div class="gallery-wrap">
-            <div style="padding:6px 8px;display:flex;justify-content:space-between;align-items:center">
-              <div style="display:flex;gap:12px;align-items:center">
+            <div style="padding:6px 8px;display:flex;justify-content:space-between;align-items:center;overflow:hidden;">
+              <div style="display:flex;gap:12px;align-items:center;min-width:0;overflow:hidden;flex-shrink:1;">
                 <div id="resultsInfo" style="font-size:13px;color:var(--text)"></div>
   
                 <div class="sort-wrap" aria-hidden="false">
