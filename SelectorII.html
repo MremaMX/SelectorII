@@ -797,10 +797,11 @@
 
     .empty-state { display:flex; align-items:center; justify-content:center; padding:36px; color:var(--text); font-size:15px; height:100%; border-radius:10px; background:transparent; border:1px dashed rgba(0,0,0,0.04); }
 
-    .sort-wrap { display:flex; gap:8px; align-items:center; }
+    .sort-wrap { display:flex; gap:8px; align-items:center; overflow:visible; }
     #sortButtons {
       display: flex;
       gap: 6px;
+      overflow: visible;
     }
 
     .sort-btn {
@@ -1026,7 +1027,7 @@
       border-radius: 50%;
       background: #eaeaea;
       border: none;
-      color: #000;
+      color: #000 !important;
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
@@ -1043,6 +1044,10 @@
         0 -5px 8px -1px rgba(255,255,255,0.7),
         inset 0 2px 3px -1px rgba(255,255,255,0.3),
         inset 0 0 4px 1px rgba(255,255,255,0.7);
+    }
+
+    body:not(.dark) .img-zoom-close {
+      color: #000 !important;
     }
 
     .img-zoom-close:hover {
@@ -2392,20 +2397,20 @@ body.dark .env-slider-icon {
 
 /* Track */
 .env-slider::-webkit-slider-runnable-track {
-  width: 4px;
-  background: rgba(0,0,0,0.35);
+  width: 5px;
+  background: rgba(0,0,0,0.55);
   border-radius: 999px;
 }
 body.dark .env-slider::-webkit-slider-runnable-track {
-  background: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.55);
 }
 .env-slider::-moz-range-track {
-  width: 4px;
-  background: rgba(0,0,0,0.35);
+  width: 5px;
+  background: rgba(0,0,0,0.55);
   border-radius: 999px;
 }
 body.dark .env-slider::-moz-range-track {
-  background: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.55);
   border-radius: 999px;
 }
 
@@ -2560,8 +2565,8 @@ body.dark .filter-group-card {
         </div>
 
         <div class="gallery-wrap">
-            <div style="padding:6px 8px;display:flex;justify-content:space-between;align-items:center;overflow:hidden;">
-              <div style="display:flex;gap:12px;align-items:center;min-width:0;overflow:hidden;flex-shrink:1;">
+            <div style="padding:6px 8px;display:flex;justify-content:space-between;align-items:center;overflow:visible;">
+              <div style="display:flex;gap:12px;align-items:center;min-width:0;overflow:visible;flex-shrink:1;">
                 <div id="resultsInfo" style="font-size:13px;color:var(--text)"></div>
   
                 <div class="sort-wrap" aria-hidden="false">
