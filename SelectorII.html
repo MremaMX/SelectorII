@@ -1027,7 +1027,7 @@
       border-radius: 50%;
       background: #eaeaea;
       border: none;
-      color: #000 !important;
+      color: #000;
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
@@ -2402,7 +2402,8 @@ body.dark .env-slider-icon {
 /* Track */
 .env-slider::-webkit-slider-runnable-track {
   width: 5px;
-  background: rgba(0,0,0,0.55);
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.18);
   border-radius: 999px;
 }
 body.dark .env-slider::-webkit-slider-runnable-track {
@@ -2410,7 +2411,8 @@ body.dark .env-slider::-webkit-slider-runnable-track {
 }
 .env-slider::-moz-range-track {
   width: 5px;
-  background: rgba(0,0,0,0.55);
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.18);
   border-radius: 999px;
 }
 body.dark .env-slider::-moz-range-track {
@@ -2452,6 +2454,7 @@ body.dark .env-slider::-moz-range-track {
 body.dark .env-slider::-webkit-slider-thumb {
   background: #2a2a3a;
   box-shadow:
+    0 0 0 1.5px rgba(255,255,255,0.35),
     0 4px 10px -2px rgba(0,0,0,0.6),
     inset 0 -1px 2px rgba(0,0,0,0.32),
     0 -3px 6px -1px rgba(80,80,110,0.2),
@@ -2473,6 +2476,14 @@ body.dark .env-slider::-webkit-slider-thumb:hover {
     0 4px 10px -2px rgba(0,0,0,0.35),
     inset 0 -1px 2px rgba(0,0,0,0.12);
   transition: transform 200ms cubic-bezier(0.23,1,0.32,1);
+}
+
+body.dark .env-slider::-moz-range-thumb {
+  background: #2a2a3a;
+  box-shadow:
+    0 0 0 1.5px rgba(255,255,255,0.35),
+    0 4px 10px -2px rgba(0,0,0,0.6),
+    inset 0 -1px 2px rgba(0,0,0,0.32);
 }
 
 /* === FILTER GROUP CARDS (glass wrappers for PAQUETE / LUGAR) === */
@@ -2678,14 +2689,14 @@ body.dark .filter-group-card {
         <svg class="env-slider-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
           <path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0V4a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0v-1a1 1 0 0 1 1-1zm9-7a1 1 0 0 1 0 2h-1a1 1 0 0 1 0-2h1zM4 11a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2h1zm14.95 5.536a1 1 0 0 1-1.414 1.414l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707zM6.464 6.464A1 1 0 0 1 5.05 7.878l-.707-.707A1 1 0 1 1 5.757 5.757l.707.707zm12.021-1.007a1 1 0 0 1 0 1.414l-.707.707a1 1 0 1 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 0zM6.464 17.536l-.707.707A1 1 0 1 1 4.343 16.83l.707-.707a1 1 0 1 1 1.414 1.414zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/>
         </svg>
-        <input type="range" class="env-slider" id="bgDarknessSlider" min="0" max="85" value="45" step="1" aria-label="Oscuridad del fondo">
+        <input type="range" class="env-slider" id="bgDarknessSlider" min="0" max="85" value="10" step="1" aria-label="Oscuridad del fondo">
       </div>
       <!-- Slider blur -->
       <div class="env-slider-wrap" title="Blur del fondo">
         <svg class="env-slider-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
         </svg>
-        <input type="range" class="env-slider" id="bgBlurSlider" min="0" max="20" value="5" step="1" aria-label="Blur del fondo">
+        <input type="range" class="env-slider" id="bgBlurSlider" min="0" max="20" value="0" step="1" aria-label="Blur del fondo">
       </div>
     </div>
   </div>
